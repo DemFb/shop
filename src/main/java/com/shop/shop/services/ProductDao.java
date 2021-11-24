@@ -25,5 +25,10 @@ public class ProductDao {
         Product list = jdbcTemplate.queryForObject(sql, BeanPropertyRowMapper.newInstance(Product.class), id);
         return list;
     }
+
+    public int deleteById(int id) {
+        String sql = "DELETE FROM products WHERE id=?;";
+        return jdbcTemplate.update(sql, id);
+    }
 }
 

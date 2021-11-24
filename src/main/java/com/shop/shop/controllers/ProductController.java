@@ -3,16 +3,15 @@ package com.shop.shop.controllers;
 import com.shop.shop.models.Product;
 import com.shop.shop.services.ProductDao;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/products")
 
-class HomeController {
+class ProductController {
 
     @Autowired
     private ProductDao productDao;
@@ -23,9 +22,17 @@ class HomeController {
         return list;
     }
 
-    @RequestMapping("/{id}")
+    @GetMapping("/{id}")
     public @ResponseBody Product getById(@PathVariable int id) {
         Product product = productDao.getById(id);
         return product;
     }
+
+    @DeleteMapping("/{id}")
+    public @ResponseBody
+    int deleteById(@PathVariable int id) {
+        int product = productDao.deleteById(id);
+        return product;
+    }
+
 }
