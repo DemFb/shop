@@ -65,5 +65,16 @@ public class ProductDao {
         
         return res;
     }
+    public int deleteById(int id) {
+        /**
+         * Delete a product in the database
+         * 
+         * @param id : the product's id
+         * 
+         * @return the status of the deletion
+         */
+        String sql = "DELETE FROM products WHERE id=?;";
+        return jdbcTemplate.update(sql, id);
+    }
 }
 

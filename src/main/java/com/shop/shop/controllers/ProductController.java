@@ -17,7 +17,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/products")
 
-class HomeController {
+class ProductController {
 
     @Autowired
     private ProductDao productDao;
@@ -57,5 +57,17 @@ class HomeController {
          * @return the update status
          */
         return productDao.update(id, requestBody);
+    }
+    @DeleteMapping("/{id}")
+    public @ResponseBody int deleteById(@PathVariable int id) {
+        /**
+         * The deletion product route
+         * 
+         * @param id :          the product's id
+         * 
+         * @return the deletion status
+         */
+        int product = productDao.deleteById(id);
+        return product;
     }
 }
