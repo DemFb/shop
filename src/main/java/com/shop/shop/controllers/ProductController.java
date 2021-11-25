@@ -3,16 +3,16 @@ package com.shop.shop.controllers;
 import com.shop.shop.models.Product;
 import com.shop.shop.services.ProductDao;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import net.minidev.json.JSONObject;
 
-import javax.servlet.http.HttpServletRequest;
-
-import java.util.ArrayList;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/products")
@@ -23,13 +23,35 @@ class ProductController {
     private ProductDao productDao;
 
     @GetMapping("")
-    public List<Product> index(Model model){
+    public List<Product> index(Model model,
+        @RequestParam(name="type", required = false) String typeFilter,
+        @RequestParam(name="rating", required = false) String ratingFilter,
+        @RequestParam(name="createdat", required = false) String dateFilter
+    ) {
         /**
          * The index route
          * 
          * @return the list of all products
+         * 
+         * @param model :        the model
+         * @param typeFilter :   the type filter method
+         * @param ratingFilter : the rating filter method
+         * @param dateFilter :   the date filter method
          */
-        List<Product> list = productDao.listAll();
+
+        List<Product> list;
+
+        // If url contains filter, call the filter function
+        if (typeFilter != null || ratingFilter != null || dateFilter != null) {
+            /* DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            String date = dateFormat.format(dateFilter) */;
+            
+            list = productDao.filter(typeFilter, ratingFilter, dateFilter);
+        } else {
+            list = productDao.listAll();
+        }
+
+
         return list;
     }
 
