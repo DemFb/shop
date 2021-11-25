@@ -10,6 +10,8 @@ public class Product {
     private long categoryId;
     private Float price;
 
+
+  /*  @GeneratedValue(strategy=GenerationType.AUTO) */
     public long getId() {
         return id;
     }
