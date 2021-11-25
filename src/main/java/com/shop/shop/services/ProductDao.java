@@ -9,11 +9,12 @@ import org.springframework.stereotype.Repository;
 import net.minidev.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 
 @Repository
-public class ProductDao {
+public class ProductDao<name> {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
@@ -196,6 +197,12 @@ public class ProductDao {
          */
         String sql = "SELECT * FROM products ORDER BY createdAt DESC;";
         List<Product> list = jdbcTemplate.query(sql, BeanPropertyRowMapper.newInstance(Product.class));
+        return list;
+    }
+
+    public List<Product> listSearchName(String name, Integer rating, Float price, String type) {
+        String sql = "SELECT * FROM products WHERE name=? AND rating=? AND price=? AND type=?;";
+        List<Product> list = jdbcTemplate.query(sql, BeanPropertyRowMapper.newInstance(Product.class), name, rating, price, type);
         return list;
     }
 }

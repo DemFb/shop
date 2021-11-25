@@ -9,6 +9,7 @@ public class Product {
     private Date createdAt;
     private long categoryId;
     private Float price;
+    private String type;
 
 
   /*  @GeneratedValue(strategy=GenerationType.AUTO) */
