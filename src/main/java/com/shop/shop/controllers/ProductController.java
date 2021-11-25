@@ -41,9 +41,6 @@ class ProductController {
 
         // If url contains filter, call the filter function
         if (typeFilter != null || ratingFilter != null || dateFilter != null) {
-            /* DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-            String date = dateFormat.format(dateFilter) */;
-            
             list = productDao.filter(typeFilter, ratingFilter, dateFilter);
         } else {
             list = productDao.listAll();
