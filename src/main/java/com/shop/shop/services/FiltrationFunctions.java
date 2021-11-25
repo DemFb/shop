@@ -4,7 +4,6 @@ import com.shop.shop.models.Category;
 import static java.lang.Math.toIntExact;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class FiltrationFunctions {
@@ -34,10 +33,10 @@ public class FiltrationFunctions {
     
     public String getRatingType(String rate) {
         /**
-         * Find the rating type (values, range, lower or upper)
-         * 
-         * @param rate the "rating" param from URl
-         * 
+          Find the rating type (values, range, lower or upper)
+
+          @param rate the "rating" param from URl
+         *
          * @return the rating type (values, range, lower or upper)
          */
 
@@ -104,17 +103,17 @@ public class FiltrationFunctions {
          * 
          * @return the SQL param of all wanted categories
          */
-        String sql = "";
+        StringBuilder sql = new StringBuilder();
 
         for (int i = 0; i < categoriesId.size(); i++) {
             int id = categoriesId.get(i);
 
-            if (i != 0 ) sql += " OR ";
-            sql += "categoryId = " + id;
+            if (i != 0 ) sql.append(" OR ");
+            sql.append("categoryId = ").append(id);
 
         }
-        if (sql.equals("")) return null;
-        else return sql;
+        if (sql.toString().equals("")) return null;
+        else return sql.toString();
     }
     public String getRatingSqlParam(List<Integer> rates) {
         /**
@@ -124,16 +123,16 @@ public class FiltrationFunctions {
          * 
          * @return the SQL param of all wanted rates
          */
-        String sql = "";
+        StringBuilder sql = new StringBuilder();
 
         for (int i = 0; i < rates.size(); i++) {
             int rate = rates.get(i);
 
-            if (i != 0) sql += " OR ";
-            sql += "rating = " + rate;
+            if (i != 0) sql.append(" OR ");
+            sql.append("rating = ").append(rate);
         }
-        if (sql.equals("")) return null;
-        else return sql;
+        if (sql.toString().equals("")) return null;
+        else return sql.toString();
     }
 
     public String getDateSqlParam(String[] dates) {
@@ -144,15 +143,15 @@ public class FiltrationFunctions {
          * 
          * @return the SQL param of all wanted dates
          */
-        String sql = "";
+        StringBuilder sql = new StringBuilder();
 
         for (int i = 0; i < dates.length; i++) {
             String date = dates[i];
 
-            if (i != 0) sql += " OR ";
-            sql += "createdAt = \"" + date + "\"";
+            if (i != 0) sql.append(" OR ");
+            sql.append("createdAt = \"").append(date).append("\"");
         }
-        if (sql.equals("")) return null;
-        else return sql;
+        if (sql.toString().equals("")) return null;
+        else return sql.toString();
     }
 }

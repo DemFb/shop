@@ -3,8 +3,6 @@ package com.shop.shop.controllers;
 import com.shop.shop.models.Product;
 import com.shop.shop.services.ProductDao;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,7 +19,7 @@ class ProductController {
     private ProductDao productDao;
 
     @GetMapping("")
-    public List<Product> index(Model model,
+    public List<Product> index(
         @RequestParam(name="type", required = false) String typeFilter,
         @RequestParam(name="rating", required = false) String ratingFilter,
         @RequestParam(name="createdat", required = false) String dateFilter
@@ -59,17 +57,8 @@ class ProductController {
          * 
          * @return the wanted product
          */
-        Product product = productDao.getById(id);
-        return product;
+        return productDao.getById(id);
     }
-
-    /**
-     *
-     * @param id
-     * @return Method delete which use deleteById function for delete the product selected by their id
-     *
-     */
-
 
     @PutMapping("/{id}")
     public @ResponseBody int update(@PathVariable int id, @RequestBody JSONObject requestBody) {
@@ -93,8 +82,7 @@ class ProductController {
          * 
          * @return the deletion status
          */
-        int product = productDao.deleteById(id);
-        return product;
+        return productDao.deleteById(id);
     }
 
 
@@ -116,9 +104,8 @@ class ProductController {
      *
      * @return the list of all products sorted by ascending id
      */
-    public List<Product> sortAsc(Model model){
-        List<Product> list = productDao.listSortedAsc();
-        return list;
+    public List<Product> sortAsc(){
+        return productDao.listSortedAsc();
     }
 
     @GetMapping("/desc")
@@ -127,9 +114,8 @@ class ProductController {
      *
      * @return the list of all products sorted by descending id
      */
-    public List<Product> sortDesc(Model model){
-        List<Product> list = productDao.listSortedDesc();
-        return list;
+    public List<Product> sortDesc(){
+        return productDao.listSortedDesc();
     }
 
     @RequestMapping("/asc=rating")
@@ -139,9 +125,8 @@ class ProductController {
      *
      * @return the list of all products sorted by ascending rating
      */
-    public List<Product> listRatingAsc(Model model) {
-        List<Product> list = productDao.listRatingAsc();
-        return list;
+    public List<Product> listRatingAsc() {
+        return productDao.listRatingAsc();
     }
 
     @RequestMapping(value = "/desc=rating")
@@ -151,9 +136,8 @@ class ProductController {
      *
      * @return the list of all products sorted by descending rating
      */
-    public List<Product> listRatingDesc(Model model) {
-        List<Product> list = productDao.listRatingDesc();
-        return list;
+    public List<Product> listRatingDesc() {
+        return productDao.listRatingDesc();
     }
 
     @RequestMapping(value = "/asc=name")
@@ -163,9 +147,8 @@ class ProductController {
      *
      * @return the list of all products sorted by ascending name
      */
-    public List<Product> listNameAsc(Model model) {
-        List<Product> list = productDao.listNameAsc();
-        return list;
+    public List<Product> listNameAsc() {
+        return productDao.listNameAsc();
     }
 
     @RequestMapping(value = "/desc=name")
@@ -175,9 +158,8 @@ class ProductController {
      *
      * @return the list of all products sorted by descending name
      */
-    public List<Product> listNameDesc(Model model) {
-        List<Product> list = productDao.listNameDesc();
-        return list;
+    public List<Product> listNameDesc() {
+        return productDao.listNameDesc();
     }
 
     @RequestMapping(value = "/asc=price")
@@ -187,9 +169,8 @@ class ProductController {
      *
      * @return the list of all products sorted by ascending price
      */
-    public List<Product> listPriceAsc(Model model) {
-        List<Product> list = productDao.listPriceAsc();
-        return list;
+    public List<Product> listPriceAsc() {
+        return productDao.listPriceAsc();
     }
 
     @RequestMapping(value = "/desc=price")
@@ -199,9 +180,8 @@ class ProductController {
      *
      * @return the list of all products sorted by descending price
      */
-    public List<Product> listPriceDesc(Model model) {
-        List<Product> list = productDao.listPriceDesc();
-        return list;
+    public List<Product> listPriceDesc() {
+        return productDao.listPriceDesc();
     }
 
     @RequestMapping(value = "/asc=createdAt")
@@ -211,9 +191,8 @@ class ProductController {
      *
      * @return the list of all products sorted by ascending created date
      */
-    public List<Product> listCreatedAtAsc(Model model) {
-        List<Product> list = productDao.listCreatedAtAsc();
-        return list;
+    public List<Product> listCreatedAtAsc() {
+        return productDao.listCreatedAtAsc();
     }
 
     @RequestMapping(value = "/desc=createdAt")
@@ -223,9 +202,8 @@ class ProductController {
      *
      * @return the list of all products sorted by descending created date
      */
-    public List<Product> listCreatedAtDesc(Model model) {
-        List<Product> list = productDao.listCreatedAtDesc();
-        return list;
+    public List<Product> listCreatedAtDesc() {
+        return productDao.listCreatedAtDesc();
     }
 
     @RequestMapping(value = "/search")
@@ -235,8 +213,7 @@ class ProductController {
      *
      * @return the product list search
      */
-        public List<Product> listSearchName(@RequestParam String name, @RequestParam Integer rating, @RequestParam Float price, @RequestParam String type, Model model) {
-            List<Product> list = productDao.listSearchName(name, rating, price, type);
-            return list;
+        public List<Product> listSearchName(@RequestParam String name, @RequestParam Integer rating, @RequestParam Float price, @RequestParam String type) {
+            return productDao.listSearchName(name, rating, price, type);
         }
     }
