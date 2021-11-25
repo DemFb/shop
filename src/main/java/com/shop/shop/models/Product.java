@@ -11,11 +11,11 @@ public class Product {
     private Float price;
     private String type;
 
-    public String getType() {return type;}
 
-    public void setType(String type) {this.type = type;}
-
-    public long getId() {return id;}
+  /*  @GeneratedValue(strategy=GenerationType.AUTO) */
+    public long getId() {
+        return id;
+    }
 
     public void setId(long id) {
         this.id = id;

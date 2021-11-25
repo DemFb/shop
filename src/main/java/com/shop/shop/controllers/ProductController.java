@@ -4,6 +4,7 @@ import com.shop.shop.models.Product;
 import com.shop.shop.services.ProductDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import net.minidev.json.JSONObject;
@@ -43,6 +44,14 @@ class ProductController {
         return product;
     }
 
+    /**
+     *
+     * @param id
+     * @return Method delete which use deleteById function for delete the product selected by their id
+     *
+     */
+
+
     @PutMapping("/{id}")
     public @ResponseBody int update(@PathVariable int id, @RequestBody JSONObject requestBody) {
         /**
@@ -55,17 +64,30 @@ class ProductController {
          */
         return productDao.update(id, requestBody);
     }
+
     @DeleteMapping("/{id}")
     public @ResponseBody int deleteById(@PathVariable int id) {
         /**
          * The deletion product route
          * 
-         * @param id :          the product's id
+         * @param id : the product's id
          * 
          * @return the deletion status
          */
         int product = productDao.deleteById(id);
         return product;
+    }
+
+
+    @PostMapping("")
+    /**
+     * Method post which use the createProduct function for create a new product
+     * @param product
+     * @return product created in the database
+     * @throws Exception
+     */
+    public int createProduct(@Validated @RequestBody Product product ) throws Exception {
+         return productDao.createProduct(product);
     }
 
 
@@ -184,26 +206,6 @@ class ProductController {
      */
     public List<Product> listCreatedAtDesc(Model model) {
         List<Product> list = productDao.listCreatedAtDesc();
-        return list;
-    }
-
-/*    @RequestMapping(value = "")
-    @ResponseBody
-    public List<Product> listCreatedAtDesc(@RequestParam("asc") String name, @RequestParam("desc") String rating,
-                                           Model model) {
-        List<Product> list = productDao.listCreatedAtDesc();
-        return list;
-    }*/
-
-    @RequestMapping(value = "/search")
-    @ResponseBody
-    /**
-     * The search route
-     *
-     * @return the product list search
-     */
-    public List<Product> listSearchName(@RequestParam String name, @RequestParam Integer rating, @RequestParam Float price, @RequestParam String type, Model model) {
-        List<Product> list = productDao.listSearchName(name, rating, price, type);
         return list;
     }
 }
