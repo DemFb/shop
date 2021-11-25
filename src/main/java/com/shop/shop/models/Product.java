@@ -9,7 +9,13 @@ public class Product {
     private Date createdAt;
     private long categoryId;
     private Float price;
+    private String type;
 
+    public String getType() {return type;}
+
+    public void setType(String type) {this.type = type;}
+
+  /*  @GeneratedValue(strategy=GenerationType.AUTO) */
     public long getId() {
         return id;
     }

@@ -9,13 +9,12 @@ import org.springframework.stereotype.Repository;
 
 import net.minidev.json.JSONObject;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 @Repository
-public class ProductDao {
+public class ProductDao<name> {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
@@ -73,14 +72,15 @@ public class ProductDao {
     public int deleteById(int id) {
         /**
          * Delete a product in the database
-         * 
+         *
          * @param id : the product's id
-         * 
+         *
          * @return the status of the deletion
          */
         String sql = "DELETE FROM products WHERE id=?;";
         return jdbcTemplate.update(sql, id);
     }
+}
 
     public List<Product> filter(String type, String rate, String date) {
         /**
