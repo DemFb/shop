@@ -5,15 +5,11 @@ import com.shop.shop.services.ProductDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.data.web.SortDefault;
 
 import net.minidev.json.JSONObject;
 
-import javax.servlet.http.HttpServletRequest;
-
-import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/products")
@@ -198,4 +194,16 @@ class ProductController {
         List<Product> list = productDao.listCreatedAtDesc();
         return list;
     }*/
+
+    @RequestMapping(value = "/search")
+    @ResponseBody
+    /**
+     * The search route
+     *
+     * @return the product list search
+     */
+    public List<Product> listSearchName(@RequestParam String name, @RequestParam Integer rating, @RequestParam Float price, @RequestParam String type, Model model) {
+        List<Product> list = productDao.listSearchName(name, rating, price, type);
+        return list;
+    }
 }
