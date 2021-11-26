@@ -291,6 +291,11 @@ public class ProductDao {
         return list;
     }
     public List<Product> listSearchName(String name, Integer rating, Float price, String type) {
+        /**
+         * This function search the product by name, rating, price and type
+         *
+         * @return the searched product
+         */
         String sql = "SELECT * FROM products WHERE name=? AND rating=? AND price=? AND type=?;";
         List<Product> list = jdbcTemplate.query(sql, BeanPropertyRowMapper.newInstance(Product.class), name, rating, price, type);
         return list;
