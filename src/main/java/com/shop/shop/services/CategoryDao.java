@@ -6,9 +6,6 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import net.minidev.json.JSONObject;
-
-import java.util.ArrayList;
 import java.util.List;
 
 @Repository
