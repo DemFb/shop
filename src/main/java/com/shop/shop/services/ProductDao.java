@@ -68,6 +68,7 @@ public class ProductDao {
         
         return res;
     }
+
     public int deleteById(int id) {
         /**
          * Delete a product in the database
@@ -78,6 +79,17 @@ public class ProductDao {
          */
         String sql = "DELETE FROM products WHERE id=?;";
         return jdbcTemplate.update(sql, id);
+    }
+
+    public int createProduct(Product product) throws Exception {
+        /**
+         * @param product
+         * function which create a new product by the insert command and update the getters in the jdbcTemplate.
+         * @return the product created in the database (1 for success and 0 for fail)
+         * @throws Exception
+         */
+        String sql = "INSERT INTO products (name, rating, createdAt, categoryId, price) VALUES (?, ?, ?, ?, ?)";
+        return jdbcTemplate.update(sql, product.getName(), product.getRating(), product.getCreatedAt(), product.getCategoryId(), product.getPrice());
     }
 
     public List<Product> filter(String type, String rate, String date) {
@@ -235,16 +247,6 @@ public class ProductDao {
         String sql = "SELECT * FROM products ORDER BY name ASC;";
         List<Product> list = jdbcTemplate.query(sql, BeanPropertyRowMapper.newInstance(Product.class));
         return list;
-    }
-    public int createProduct(Product product) throws Exception {
-        /**
-         * @param product
-         * function which creqte a new product by the insert command and update the getters in the jdbcTemplate.
-         * @return the product created in the database (1 for succes and 0 to fail)
-         * @throws Exception
-         */
-        String sql = "INSERT INTO products (name, rating, createdAt, categoryId, price) VALUES (?, ?, ?, ?, ?)";
-        return jdbcTemplate.update(sql, product.getName(), product.getRating(), product.getCreatedAt(), product.getCategoryId(), product.getPrice());
     }
 
     public List<Product> listSortedAsc() {
