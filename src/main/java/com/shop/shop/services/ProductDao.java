@@ -9,12 +9,11 @@ import org.springframework.stereotype.Repository;
 
 import net.minidev.json.JSONObject;
 
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Repository
 public class ProductDao {
+
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
@@ -294,6 +293,20 @@ public class ProductDao {
     public List<Product> listSearchName(String name, Integer rating, Float price, String type) {
         String sql = "SELECT * FROM products WHERE name=? AND rating=? AND price=? AND type=?;";
         List<Product> list = jdbcTemplate.query(sql, BeanPropertyRowMapper.newInstance(Product.class), name, rating, price, type);
+        return list;
+    }
+
+    public List<Product> paginationProduct(String range) {
+        /**
+         *
+         * This function use sql command, then split two selected values
+         * @param range
+         * @return the product list pagination
+         */
+        int start = Integer.parseInt(range.split(",")[0]);
+        int end = Integer.parseInt(range.split(",")[1]);
+        String sql = "SELECT * FROM products LIMIT ?, ?;";
+        List<Product> list = jdbcTemplate.query(sql, BeanPropertyRowMapper.newInstance(Product.class), start, end);
         return list;
     }
 }

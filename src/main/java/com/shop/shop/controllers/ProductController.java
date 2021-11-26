@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import net.minidev.json.JSONObject;
 
+import java.awt.print.Pageable;
 import java.util.List;
 
 @RestController
@@ -23,7 +24,8 @@ class ProductController {
         @RequestParam(name="type", required = false) String typeFilter,
         @RequestParam(name="rating", required = false) String ratingFilter,
         @RequestParam(name="createdat", required = false) String dateFilter
-    ) {
+    )
+    {
         /**
          * The index route
          * 
@@ -213,7 +215,19 @@ class ProductController {
      *
      * @return the product list search
      */
-        public List<Product> listSearchName(@RequestParam String name, @RequestParam Integer rating, @RequestParam Float price, @RequestParam String type) {
-            return productDao.listSearchName(name, rating, price, type);
-        }
+    public List<Product> listSearchName(@RequestParam String name, @RequestParam Integer rating, @RequestParam Float price, @RequestParam String type) {
+        return productDao.listSearchName(name, rating, price, type);
     }
+
+    @RequestMapping(value = "/orders")
+    @ResponseBody
+    /**
+     * The pagination route use the paginationProduct function which return the pagination
+     *
+     * @return the product list pagination
+     */
+    public List<Product> paginationProduct(@RequestParam String range){
+        return productDao.paginationProduct(range);
+    }
+
+}
